@@ -74,23 +74,27 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Wave's Blog" type="application/atom+xml" />
 
 
 
 
 
-<meta name="description" content="在Jfinal中使用JSP视图Jfinal版本因为3.5及之后版本要求jdk1.8,而我使用的jdk是1.7所以使用此版本。 12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;com.jfinal&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;jfinal&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;3.4&amp;lt;/vers">
+
+<meta name="description" content="前言因为公司有很多比较小的项目（有时候可能只有一个提交页面)，所以JFinal也是公司主流在使用的一个框架，很大一部分同事都在用。平时我还是喜欢使用Spring系列，今天来了一个小的活动开发，就想用一下JFinal，但是看了文档默认的视图（模版引擎）是自带的Enjoy模版引擎，不想增加学习成本于是就使用原始的JSP来开发。">
 <meta name="keywords" content="Java,JFinal,小技巧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Jfinal中使用JSP视图">
 <meta property="og:url" content="https://wavevan.github.io/2019/12/19/JFinal-use-JSP/index.html">
 <meta property="og:site_name" content="Wave&#39;s Blog">
-<meta property="og:description" content="在Jfinal中使用JSP视图Jfinal版本因为3.5及之后版本要求jdk1.8,而我使用的jdk是1.7所以使用此版本。 12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;com.jfinal&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;jfinal&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;3.4&amp;lt;/vers">
+<meta property="og:description" content="前言因为公司有很多比较小的项目（有时候可能只有一个提交页面)，所以JFinal也是公司主流在使用的一个框架，很大一部分同事都在用。平时我还是喜欢使用Spring系列，今天来了一个小的活动开发，就想用一下JFinal，但是看了文档默认的视图（模版引擎）是自带的Enjoy模版引擎，不想增加学习成本于是就使用原始的JSP来开发。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-18T16:38:15.192Z">
+<meta property="og:image" content="https://i.loli.net/2019/12/20/bKVNoWf8lHacnjZ.jpg">
+<meta property="og:updated_time" content="2019-12-20T15:42:12.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Jfinal中使用JSP视图">
-<meta name="twitter:description" content="在Jfinal中使用JSP视图Jfinal版本因为3.5及之后版本要求jdk1.8,而我使用的jdk是1.7所以使用此版本。 12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;com.jfinal&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;jfinal&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;3.4&amp;lt;/vers">
+<meta name="twitter:description" content="前言因为公司有很多比较小的项目（有时候可能只有一个提交页面)，所以JFinal也是公司主流在使用的一个框架，很大一部分同事都在用。平时我还是喜欢使用Spring系列，今天来了一个小的活动开发，就想用一下JFinal，但是看了文档默认的视图（模版引擎）是自带的Enjoy模版引擎，不想增加学习成本于是就使用原始的JSP来开发。">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/20/bKVNoWf8lHacnjZ.jpg">
 
 
 
@@ -315,7 +319,18 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JFinal/" itemprop="url" rel="index">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/JFinal/" itemprop="url" rel="index">
                     <span itemprop="name">JFinal</span>
                   </a>
                 </span>
@@ -350,9 +365,26 @@
 
       
       
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://i.loli.net/2019/12/20/bKVNoWf8lHacnjZ.jpg" rel="gallery_ck4ehkc1r0000xwqb73s287fl"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://i.loli.net/2019/12/20/bKVNoWf8lHacnjZ.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
 
       
-        <h1 id="在Jfinal中使用JSP视图"><a href="#在Jfinal中使用JSP视图" class="headerlink" title="在Jfinal中使用JSP视图"></a>在Jfinal中使用JSP视图</h1><h2 id="Jfinal版本"><a href="#Jfinal版本" class="headerlink" title="Jfinal版本"></a>Jfinal版本</h2><p>因为3.5及之后版本要求jdk1.8,而我使用的jdk是1.7所以使用此版本。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为公司有很多比较小的项目（有时候可能只有一个提交页面)，所以JFinal也是公司主流在使用的一个框架，很大一部分同事都在用。平时我还是喜欢使用Spring系列，今天来了一个小的活动开发，就想用一下JFinal，但是看了文档默认的视图（模版引擎）是自带的Enjoy模版引擎，不想增加学习成本于是就使用原始的JSP来开发。<br><a id="more"></a></p>
+<h2 id="Jfinal版本"><a href="#Jfinal版本" class="headerlink" title="Jfinal版本"></a>Jfinal版本</h2><p>因为3.5及之后版本要求jdk1.8，而我使用的jdk是1.7所以使用此版本。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jfinal<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jfinal<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="使用JSP视图"><a href="#使用JSP视图" class="headerlink" title="使用JSP视图"></a>使用JSP视图</h2><ol>
 <li><p>引入所需jstl相关依赖</p>
@@ -407,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/30/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/07/13/hello-world/" rel="next" title="Hexo 博客框架笔记">
+                <i class="fa fa-chevron-left"></i> Hexo 博客框架笔记
               </a>
             
           </div>
@@ -505,7 +537,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -516,7 +548,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -525,8 +557,23 @@
           </nav>
 
           
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/3907581234" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
             
           </div>
 
@@ -551,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在Jfinal中使用JSP视图"><span class="nav-number">1.</span> <span class="nav-text">在Jfinal中使用JSP视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jfinal版本"><span class="nav-number">1.1.</span> <span class="nav-text">Jfinal版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用JSP视图"><span class="nav-number">1.2.</span> <span class="nav-text">使用JSP视图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.</span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#text-Hello-JSP"><span class="nav-number">2.1.</span> <span class="nav-text">${text }Hello JSP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-World-1"><span class="nav-number">3.</span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-JSPHello-JSP"><span class="nav-number">3.1.</span> <span class="nav-text">Hello JSPHello JSP</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jfinal版本"><span class="nav-number">2.</span> <span class="nav-text">Jfinal版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用JSP视图"><span class="nav-number">3.</span> <span class="nav-text">使用JSP视图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-World"><span class="nav-number"></span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#text-Hello-JSP"><span class="nav-number">1.</span> <span class="nav-text">${text }Hello JSP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-World-1"><span class="nav-number"></span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-JSPHello-JSP"><span class="nav-number">1.</span> <span class="nav-text">Hello JSPHello JSP</span></a></li></ol></div>
             
 
           </div>
@@ -571,7 +618,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

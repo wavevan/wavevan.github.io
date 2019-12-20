@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小技巧,NodeJS,Hexo," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Wave's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言去年折腾NodeJS时发现了这个Hexo博客框架也没留意，后来发现很多大佬都用这个在做技术博客，而且个人觉得配合上NexT主题使用是真香。随意自己也折腾了一下，技术分享啥的就算了没啥技术（苦笑），不过到是可以做自己笔记，就是防止一些工作中的一些小坑重复弄耽误时间。由于这个是之前搭建过了搁置一段时间所有就记录下，这段时间对它一些使用心得和优化吧。">
+<meta name="keywords" content="小技巧,NodeJS,Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客框架笔记">
+<meta property="og:url" content="https://wavevan.github.io/2018/07/13/hello-world/index.html">
+<meta property="og:site_name" content="Wave&#39;s Blog">
+<meta property="og:description" content="前言去年折腾NodeJS时发现了这个Hexo博客框架也没留意，后来发现很多大佬都用这个在做技术博客，而且个人觉得配合上NexT主题使用是真香。随意自己也折腾了一下，技术分享啥的就算了没啥技术（苦笑），不过到是可以做自己笔记，就是防止一些工作中的一些小坑重复弄耽误时间。由于这个是之前搭建过了搁置一段时间所有就记录下，这段时间对它一些使用心得和优化吧。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/12/21/giWs1xI4lqutFEQ.jpg">
+<meta property="og:updated_time" content="2019-12-20T17:52:33.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo 博客框架笔记">
+<meta name="twitter:description" content="前言去年折腾NodeJS时发现了这个Hexo博客框架也没留意，后来发现很多大佬都用这个在做技术博客，而且个人觉得配合上NexT主题使用是真香。随意自己也折腾了一下，技术分享啥的就算了没啥技术（苦笑），不过到是可以做自己笔记，就是防止一些工作中的一些小坑重复弄耽误时间。由于这个是之前搭建过了搁置一段时间所有就记录下，这段时间对它一些使用心得和优化吧。">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/21/giWs1xI4lqutFEQ.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wavevan.github.io/2018/07/13/hello-world/"/>
+
+
+
+
+
+  <title>Hexo 博客框架笔记 | Wave's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wave's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">gamer</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wavevan.github.io/2018/07/13/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wavevan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://wx3.sinaimg.cn/mw690/e8e8f532ly1fjmeq8m65fj20kw112q5e.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wave's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo 博客框架笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T00:00:00+08:00">
+                2018-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">NodeJS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NodeJS/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://i.loli.net/2019/12/21/giWs1xI4lqutFEQ.jpg" rel="gallery_ck4ehkc210002xwqbo1s45hwa"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://i.loli.net/2019/12/21/giWs1xI4lqutFEQ.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>去年折腾NodeJS时发现了这个Hexo博客框架也没留意，后来发现很多大佬都用这个在做技术博客，而且个人觉得配合上NexT主题使用是真香。随意自己也折腾了一下，技术分享啥的就算了没啥技术（苦笑），不过到是可以做自己笔记，就是防止一些工作中的一些小坑重复弄耽误时间。由于这个是之前搭建过了搁置一段时间所有就记录下，这段时间对它一些使用心得和优化吧。<br><a id="more"></a><br>下面是Hexo的快速使用就放这里吧不管它了。</p>
+<details><br><summary>展开查看</summary><br>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><br><h2>Quick Start</h2><br><br><h3>Create a new post</h3><br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><br><br>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br><br><h3>Run server</h3><br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><br><br>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a><br><br><h3>Generate static files</h3><br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><br><br>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a><br><br><h3>Deploy to remote sites</h3><br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><br><br>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a><br></details>
+
+<h2 id="头像设置"><a href="#头像设置" class="headerlink" title="头像设置"></a>头像设置</h2><p>配置文件位置：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">root</span></span><br><span class="line"><span class="string">├──</span> <span class="string">themes</span></span><br><span class="line"><span class="string">|   └──next</span></span><br><span class="line"><span class="string">|       ├──source</span></span><br><span class="line"><span class="string">|       |   └──images</span></span><br><span class="line"><span class="string">|       |       └──avatar.gif(默认头像文件)</span></span><br><span class="line"><span class="string">|       └──_config.yml(配置文件)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Sidebar Avatar</span></span><br><span class="line"><span class="string"># in theme directory(source/images): /images/avatar.gif</span></span><br><span class="line"><span class="string"># in site  directory(source/uploads): /uploads/avatar.gif</span></span><br><span class="line"><span class="string"></span><span class="attr">avatar:</span> <span class="string">/images/avatar.gif</span></span><br></pre></td></tr></table></figure></p>
+<p>修改<strong>avatar</strong>参数，默认是在主题下的 <strong>/source</strong>目录下的 <strong>/images/avatar.gif</strong>，也可以放在站点的 <strong>/source</strong>目录下新建 <strong>/upload</strong>目录用于存放静态资源，如上述注释内容所述。当然，我们也可以使用网络图片，将配置改为图片的链接即可。<br>还有一些将头像设置成圆形然后长按会旋转的设置有些复杂，并且太过花里胡哨就不研究了。</p>
+<h2 id="文档的一些设置"><a href="#文档的一些设置" class="headerlink" title="文档的一些设置"></a>文档的一些设置</h2><ul>
+<li><h3 id="分类和标签的设置"><a href="#分类和标签的设置" class="headerlink" title="分类和标签的设置"></a>分类和标签的设置</h3><p>  好的分类和标签可以更加快速的查找文章和浏览同类文章。下面介绍设置方法，怎么新建文章就跳过啦。  </p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo</span> <span class="string">博客框架笔记</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2018</span><span class="bullet">-07</span><span class="bullet">-13</span> <span class="number">00</span><span class="string">:00:00</span></span><br><span class="line"><span class="attr">categories:</span> </span><br><span class="line"><span class="bullet">        -</span> <span class="string">NodeJS</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">Hexo</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="bullet">    -</span> <span class="string">NodeJS</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Hexo</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">小技巧</span></span><br><span class="line"><span class="attr">photos:</span> <span class="attr">https://i.loli.net/2019/12/21/giWs1xI4lqutFEQ.jpg</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>  每个文章开头都有 <code>---</code> 包裹的一个头部，这里面就是文章的一些基本信息配置。</p>
+<ol>
+<li><strong>categories</strong> 这个配置的是分类，多个同级并不是代表多个分类，而是通过上下关系表示层级，这里就是表示Hexo分类是NodeJS的子类。</li>
+<li><strong>tags</strong> 表示标签，这里的多个就单纯表示为多个标签。</li>
+<li><strong>photos</strong> 这个配置会给文章加上首图，并且在首页摘要中也有显示。支持多个图片使用 <code>-</code> 同级排列就行了。</li>
+</ol>
+</li>
+<li><h3 id="首页摘要"><a href="#首页摘要" class="headerlink" title="首页摘要"></a>首页摘要</h3><p>  默认情况下首页会把所有的文章连续、完整展示直至下一页，这会不方便我们阅读且不美观。下面介绍设置方法，有两种方法。</p>
+<ol>
+<li><p>全局设置（配置文件同修改头像的相同）</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Automatically Excerpt. Not recommend.</span></span><br><span class="line"><span class="comment"># Please use &lt;!-- more --&gt; in the post to control excerpt accurately.</span></span><br><span class="line"><span class="attr">auto_excerpt:</span></span><br><span class="line"><span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">length:</span> <span class="number">150</span></span><br></pre></td></tr></table></figure>
+<p> 这里只需要将 <strong>auto_excerpt</strong> 参数的 <strong>enable</strong> 改为 <strong>true</strong> 调整 <strong>length</strong> 摘要长度即可。但是设置后我发现它确实现实摘要了但并不显示文章的样式只是单纯的显示文字，并不美观。</p>
+</li>
+<li><p>单独设置<br> 从上面配置文件的注释中我们发现了这种方法，就是在文章内容中需要显示摘要的地方通过 <code>&lt;!-- more --&gt;</code>这个标记分割内容即可，<code>&lt;!-- more --&gt;</code>上面的内容显示为摘要，下面不显示。下面是本文的使用示例。</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 前言</span></span><br><span class="line">去年折腾NodeJS时发现了这个Hexo博客框架也没留意，后来发现很多大佬都用这个在做技术博客，而且个人觉得配合上NexT主题使用是真香。随意自己也折腾了一下，技术分享啥的就算了没啥技术（苦笑），不过到是可以做自己笔记，就是防止一些工作中的一些小坑重复弄耽误时间。由于这个是之前搭建过了搁置一段时间所有就记录下，这段时间对它一些使用心得和优化吧。</span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- more --&gt;</span></span></span><br><span class="line">下面是Hexo的Hello World 就放这里吧不管它了。  </span><br><span class="line">Welcome to [<span class="string">Hexo</span>](<span class="link">https://hexo.io/</span>)! This is your very first post. Check [<span class="string">documentation</span>](<span class="link">https://hexo.io/docs/</span>) for more info. If you get any problems when using Hexo, you can find the answer in [<span class="string">troubleshooting</span>](<span class="link">https://hexo.io/docs/troubleshooting.html</span>) or you can ask me on [<span class="string">GitHub</span>](<span class="link">https://github.com/hexojs/hexo/issues</span>).</span><br></pre></td></tr></table></figure>
+<p>我们发现第二种方法更加的实用更加的美观，仅仅每个文章加个标记就可以了，内容上更加自由。推荐第二种。</p>
+<h2 id="分享一些找头图的网站"><a href="#分享一些找头图的网站" class="headerlink" title="分享一些找头图的网站"></a>分享一些找头图的网站</h2><blockquote>
+<p><a href="https://chineseposters.net/index.php" target="_blank" rel="noopener"><strong>中国海报</strong> https://chineseposters.net/index.php</a><br><a href="https://huaban.com" target="_blank" rel="noopener"><strong>花瓣网</strong> https://huaban.com</a><br><a href="https://www.zcool.com.cn/" target="_blank" rel="noopener"><strong>站酷</strong> https://www.zcool.com.cn/</a><br><a href="http://www.leewiart.com/WebPage/default.aspx" target="_blank" rel="noopener"><strong>leewiart</strong> http://www.leewiart.com/WebPage/default.aspx</a><br><a href="https://unsplash.com" target="_blank" rel="noopener"><strong>unsplash</strong> https://unsplash.com</a><br><a href="https://www.pexels.com/zh-cn/" target="_blank" rel="noopener"><strong>pexels</strong> https://www.pexels.com/zh-cn/</a><br><a href="https://visualhunt.com/" target="_blank" rel="noopener"><strong>visualhunt</strong> https://visualhunt.com/</a><br><a href="http://www.polayoutu.com/collections" target="_blank" rel="noopener"><strong>泼辣有图</strong> http://www.polayoutu.com/collections</a></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小技巧/" rel="tag"># 小技巧</a>
+          
+            <a href="/tags/NodeJS/" rel="tag"># NodeJS</a>
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/19/JFinal-use-JSP/" rel="prev" title="在Jfinal中使用JSP视图">
+                在Jfinal中使用JSP视图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://wx3.sinaimg.cn/mw690/e8e8f532ly1fjmeq8m65fj20kw112q5e.jpg"
+                alt="wavevan" />
+            
+              <p class="site-author-name" itemprop="name">wavevan</p>
+              <p class="site-description motion-element" itemprop="description">Just do IT!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/3907581234" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#头像设置"><span class="nav-number">3.</span> <span class="nav-text">头像设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档的一些设置"><span class="nav-number">4.</span> <span class="nav-text">文档的一些设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类和标签的设置"><span class="nav-number">4.1.</span> <span class="nav-text">分类和标签的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首页摘要"><span class="nav-number">4.2.</span> <span class="nav-text">首页摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分享一些找头图的网站"><span class="nav-number">5.</span> <span class="nav-text">分享一些找头图的网站</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wavevan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
