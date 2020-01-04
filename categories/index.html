@@ -81,17 +81,14 @@
 
 
 
-<meta name="description" content="Just do IT!">
 <meta property="og:type" content="website">
 <meta property="og:title" content="分类">
 <meta property="og:url" content="https://wavevan.github.io/categories/index.html">
 <meta property="og:site_name" content="Wave&#39;s Blog">
-<meta property="og:description" content="Just do IT!">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-07-30T08:38:55.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分类">
-<meta name="twitter:description" content="Just do IT!">
 
 
 
@@ -410,7 +407,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -452,6 +449,30 @@
       </div>
     
 
+    <!-- 自定义组件音乐 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <!-- require MetingJS -->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    <meting-js style="margin-top: 1.5rem;width: auto;height: auto;"
+    server="netease"
+    type="playlist"
+    id="381314134"
+    theme="#ad7a86"
+    loop="all"
+    autoplay="true"
+    order="random"
+    storageName="aplayer-setting"
+    lrctype=0
+    fixed="true"
+    >
+    </meting-js>
+    <style>
+        .aplayer{
+            margin: 1.5rem 0;
+        }
+    </style>
   </div>
 
   
