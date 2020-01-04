@@ -1828,7 +1828,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffff65;
+  background: #08ffa4;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2995,7 +2995,4 @@ pre .javascript .function {
   .post-body {
     text-align: justify;
   }
-}
-body {
-  background: url("https://i.loli.net/2019/12/20/bKVNoWf8lHacnjZ.jpg");
 }
